@@ -1,0 +1,35 @@
+{% extends "./templatePage.html" %}
+{% load bootstrap4 %}
+{% load static %}
+
+{% block contentSect %} 
+
+<div class="container-fluid loginSect align-items-center d-flex justify-content-center align-items-center ">
+    <div class="card loginCard text-center mt-5" >
+        <div class="card-body">
+
+          <!-- ✅ Success Alert upon successfully creating an account -->
+          {% if messages %}
+              {% for message in messages %}
+                  <div class="alert alert-success alertMessage" role="alert">
+                      {{ message }}
+                  </div>
+              {% endfor %}
+          {% endif %}
+
+          <h5 class="card-title loginCardTitle">Login to your account</h5>
+
+          <form method="POST" class="pb-2 pt-3">
+            {% csrf_token %}
+            {{ form.as_p }}  {# This renders the email and password fields #}
+            <div class="pt-5">
+              <button type="submit" class="btn genericButton">Login</button>
+            </div>
+          </form>
+
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

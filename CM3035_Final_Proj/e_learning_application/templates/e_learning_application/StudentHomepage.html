@@ -1,0 +1,32 @@
+{% extends "./templatePage.html" %}
+{% load bootstrap4 %}
+{% load static %}
+
+{% block contentSect %} 
+
+<div class="container-fluid mt-5 pb-5 text-center ">
+    <h1> Enrolled Courses </h1>
+</div>
+
+{% if enrolled_courses %}
+    <div class="container-fluid"> 
+        <div class="row justify-content-center"> 
+            {% for course in enrolled_courses %}
+            <div class="col-md-4 mb-4 d-flex justify-content-center">
+                <div class="card courseCard" >
+                    <div class="card-body text-center">
+                        <h5 class="card-title">{{ course.courseTitle }}</h5>
+                        <h6 class="card-subtitle mb-2 text-body-secondary pt-1 "> Created by: {{ course.teacherID.userID.user.username }} </h6>
+                        <h6 class="card-subtitle mb-2 text-body-secondary pt-1 "> Created date: {{ course.courseCreatedDate }} </h6>
+                        <p class="card-text"> {{ course.courseDescription }} </p>
+                        <a href="{% url 'course_content' course.courseID %}" class="card-link btn courseEditBtn"> View course </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+{% endif %}
+
+{% endblock %}

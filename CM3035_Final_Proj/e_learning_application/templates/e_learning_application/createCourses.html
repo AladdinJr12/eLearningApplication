@@ -1,0 +1,33 @@
+{% extends "./templatePage.html" %}
+{% load static %}
+
+{% block contentSect %} 
+
+
+<div class="container createCourseContainer mt-5">
+    <div class="card p-4">
+        <h2 class="text-center pb-3">Create a New Course</h2>
+        <form method="POST">
+            {% csrf_token %}
+            <div class="w-100 d-flex flex-column align-items-center"> 
+                <div class="mb-3">
+                    <label for="{{ course_form.courseTitle.id_for_label }}" class="form-label">Course Title</label>
+                    <div>
+                        {{ course_form.courseTitle }}
+                    </div>
+                </div>
+            
+                <div class="mb-3">
+                    <label for="{{ course_form.courseDescription.id_for_label }}" class="form-label">Course Description</label>
+                    <div>
+                        {{ course_form.courseDescription }}
+                    </div>
+                </div>
+                <button type="submit" class="btn genericButton">Create Course</button>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+{% endblock %}

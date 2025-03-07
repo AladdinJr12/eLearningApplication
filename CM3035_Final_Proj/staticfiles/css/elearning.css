@@ -1,0 +1,91 @@
+/*_______________#-----Affecting most/all pages---#_____________*/
+.defaultPageBody{
+    background-color: #ECDCBF;
+    /* color: red; */
+}
+
+
+
+/*------------For the header section-----------------*/
+.HeaderSect{
+    background-color: #F8FAFC;
+    /* color: rgb(0, 255, 68); */
+    padding-top: 0.2%;
+    padding-bottom: 0.2%;
+    /* font-size: 1rem !important; */
+}
+
+.websiteHeaderHi{
+    color: #A31D1D;
+}
+
+.websiteHeaderLearners{
+    color: black;
+}
+
+.websiteHeaderHi, .websiteHeaderLearners{
+    font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif
+}
+
+/* .header-nav-text{
+    font-size: 80% ;
+} */
+
+.navbar-nav .nav-link {
+    font-size: 120% ;
+    display: inline-flex; /* inline-flex ensures items are aligned horizontally */
+    align-items: start;  /* vertically centers the content */
+}
+
+.nav-item {
+    margin-right: 0%; /* adjust value as needed */
+  }
+
+/* .first-nav-item{
+    padding-left: 100%;
+} */
+
+/* .headerLogo{
+    padding-right: 50%;
+} */
+
+
+
+/*------------For MainHomePahe.html section-----------------*/
+/* Default styling (for desktop or larger screens) */
+.MainHomepageHeader {
+    font-size: 10rem;
+  }
+  
+  .MainHomepageSubheader {
+    font-size: 2rem;
+  }
+  
+  
+.HomepageSignUpBtn{
+    font-family: Georgia, 'Times New Roman', Times, serif !important;
+    color: white !important ;
+    background-color: #A31D1D !important;
+    width: 18rem;
+    height: 5rem;
+    font-size: 2.3rem !important;
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+}
+
+.HomepageSignUpBtn:hover{
+    background-color: red !important;
+}
+
+
+/*________________-----------For screens smaller than 768px (mobile)-----------______________*/
+@media (max-width: 768px) {
+    /*__________----------------For homepage.html-------------__________*/
+    .MainHomepageHeader {
+        font-size: 4rem;
+    }
+    .MainHomepageSubheader {
+        font-size: 1.5rem;
+    }
+}
