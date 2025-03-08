@@ -77,14 +77,13 @@ def index(request, date_range=None):
 
     if request.user.is_authenticated:
         app_user = AppUser()
-
         try:
             app_user = AppUser.objects.get(user=request.user)
             if app_user.role == "Student":
-                return redirect('student_dashboard')
+                return redirect('student_dashboard', appUser_id=app_user.id)
             
             elif app_user.role == "Teacher":
-                return redirect('teacher_dashboard')
+                return redirect('teacher_dashboard', appUser_id=app_user.id)
 
         except AppUser.DoesNotExist:
             pass
@@ -144,11 +143,12 @@ def user_login(request):
                     # Ensure the selected role matches the user's actual role
                     if selected_role == "Student" and Students.objects.filter(userID=app_user).exists():
                         login(request, authenticated_user)
-                        return redirect('student_dashboard')  #-----Redirect to Student dashboard----#
+                        return redirect('student_dashboard', appUser_id=app_user.id)  #-----Redirect to Student dashboard----#
 
                     elif selected_role == "Teacher" and Teachers.objects.filter(userID=app_user).exists():
                         login(request, authenticated_user)
-                        return redirect('teacher_dashboard')  #---Redirect to Teacher dashboard--#
+                        print(f"My app_user is: {app_user.id}")
+                        return redirect('teacher_dashboard', appUser_id=app_user.id)  #---Redirect to Teacher dashboard--#
 
                     else:
                         form.add_error(None, "You do not have access as a " + selected_role)
@@ -184,30 +184,63 @@ def courses(request):
 #---link for the teacher's homepage----------#
 @login_required (login_url='login') # Ensure user is logged in as a teacher
 @teacher_required
-def teacherHomepage(request):
+def teacherHomepage(request, appUser_id):
+    status_list = []  # --Initialize status_list to avoid UnboundLocalError--#
     try:
+        # getting the logged in/searched teacher entry
+        appUser = get_object_or_404(AppUser, id=appUser_id)
         #---Getting the logged in teacher entry----#
-        teacher = Teachers.objects.get(userID= request.user.appuser)
+        teacher = Teachers.objects.get(userID= appUser)
 
         #---Getting all of the courses made by logged in teacher---#
         teacher_courses = Course.objects.filter(teacherID= teacher)
-    
+
+        #---Fetch the latest 3 read status updates + ensure they are arrange from newest first---#
+        status_list = StatusUpdates.objects.filter(user_id=appUser, is_read=True).order_by('-status_update_date')[:3]
+        print(f" our app user is {appUser}")
+
     except Teachers.DoesNotExist:
         teacher_courses = None
 
-    return render(request, "e_learning_application/TeacherHomepage.html", {'teacher_courses': teacher_courses})
-    
+    return render(request, "e_learning_application/TeacherHomepage.html",
+                   {'teacher_courses': teacher_courses,
+                    'status_list': status_list,
+                    'appUser': appUser
+                    })
+
 
 #------link for the student's homepage----------#
 @login_required (login_url='login') # Ensure user is logged in as a student
-@student_required
-def studentHomepage(request):
+def studentHomepage(request, appUser_id):
+    # getting the logged in/searched teacher entry
+    appUser = get_object_or_404(AppUser, id=appUser_id)
     #----Get the logged-in user’s Students object---#
-    student = get_object_or_404(Students, userID= request.user.appuser.id)
+    student = get_object_or_404(Students, userID= appUser)
 
     enrolled_courses = Course.objects.filter(enrollments__studentID=student)
 
-    return render(request, "e_learning_application/StudentHomepage.html", {'enrolled_courses': enrolled_courses})
+    #---Fetch the latest 3 read status updates + ensure they are arrange from newest first---#
+    status_list = StatusUpdates.objects.filter(user_id=appUser, is_read=True).order_by('-status_update_date')[:3]
+    
+    return render(request, "e_learning_application/StudentHomepage.html", 
+                  {'enrolled_courses': enrolled_courses,
+                    'status_list': status_list,
+                    'appUser': appUser
+                   })
+
+
+#---so that the homepages are visible by other users---#
+def userHomepage(request, appUser_id):
+    search_appUser = get_object_or_404(AppUser, id=appUser_id)
+    print(f"we are passing in {search_appUser}")
+
+    if search_appUser.role == "Student":
+        return redirect('student_dashboard', appUser_id=search_appUser.id)
+    elif search_appUser.role == "Teacher":
+        return redirect('teacher_dashboard', appUser_id=search_appUser.id)
+    else:
+        return render(request, 'errorPage.html')  # Handle unexpected roles
+
 
 
 #----_______Page for creating courses and content for the courses______----------#
@@ -240,6 +273,7 @@ def create_course(request):
 @login_required (login_url='login') # Ensure user is logged in
 @teacher_required
 def add_content(request):
+    app_user = AppUser.objects.get(user=request.user)
     try: 
         teacher = Teachers.objects.get(userID = request.user.appuser)
 
@@ -282,8 +316,8 @@ def add_content(request):
                 }
                 response = requests.post(api_url, json=student_payload)
 
-
-            return redirect('teacher_dashboard')
+            
+            return redirect('teacher_dashboard', appUser_id=app_user.id)
     else:
         content_form = CourseContentForm()
     
@@ -402,6 +436,8 @@ def course_content(request, course_id):
 @login_required (login_url='login')
 @student_required
 def unenroll_from_course(request, course_id):
+    #---get the logged in user---#
+    app_user = AppUser.objects.get(user=request.user)
     #---get the enrolled_course---#
     course = get_object_or_404(Course, pk = course_id)
     
@@ -413,8 +449,8 @@ def unenroll_from_course(request, course_id):
 
     #---delete the enrollment entry----#
     enrollment_entry.delete()
-
-    return redirect('student_dashboard') #--return to student homepage---#
+    return redirect('student_dashboard', appUser_id=app_user.id) #--return to student homepage---#
+  
 
 
 #____-------where the teacher manually remove a student-----------_____#
@@ -448,6 +484,7 @@ def removed_from_course(request, course_id, student_id):
 @login_required (login_url='login')
 @teacher_required
 def delete_course(request, course_id):
+    app_user = AppUser.objects.get(user=request.user)
     #----Get the selected course---------#
     course = get_object_or_404(Course, pk= course_id)
     
@@ -457,7 +494,7 @@ def delete_course(request, course_id):
 
     course.delete()
 
-    return redirect('teacher_dashboard')
+    return redirect('teacher_dashboard', appUser_id=app_user.id)
 
 
 #----_________Functionality for the search button________---#
@@ -567,6 +604,7 @@ def status_form_page(request):
         if status_form.is_valid():
             statusUpdate = status_form.save(commit=False)
             statusUpdate.user_id = request.user.appuser
+            statusUpdate.is_read = True
             statusUpdate.save()
             print("--we are going index after status form--")
             return redirect('index') #---returns to either teacher or student dashboard--#
@@ -580,6 +618,7 @@ def status_form_page(request):
     return render(request, 'e_learning_application/statusForm.html', {
         'status_form': status_form
     })
+
 
 
 

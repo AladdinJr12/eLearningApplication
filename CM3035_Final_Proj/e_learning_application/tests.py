@@ -34,13 +34,13 @@ class TeacherRequiredTests(TestCase):
 
     def test_student_redirected_from_teacher_page(self):
         self.client.login(username='student', password='Pass123')
-        response = self.client.get(reverse('teacher_dashboard'))
+        response = self.client.get(reverse('teacher_dashboard', kwargs={'appUser_id': self.teacher_app_user.id}))
         self.assertRedirects(response, reverse('error_page'))
 
     #---Accessing teacher_dashboard via teacher account---#
     def test_accessing_teacher_dashboard_from_teacher_account(self):
         self.client.login(username='teacher', password='Pass123')
-        response = self.client.get(reverse('teacher_dashboard'))
+        response = self.client.get(reverse('teacher_dashboard', kwargs={'appUser_id': self.teacher_app_user.id}))
         #---This checks if the response is successful---#
         self.assertEqual(response.status_code, 200) 
         
@@ -56,16 +56,17 @@ class StudentRequiredTests(TestCase):
         self.teacher_user = UserFactory(username='teacher', password='Pass123')
         self.teacher_app_user = AppUserFactory(user=self.teacher_user, role='Teacher')
 
-    #---Accessing student_dashboard via teacher account---#
+    #---Accessing student_dashboard via teacher account: essential for when teachers want to view a specific student's homepage---#
     def test_accessing_student_dashboard_from_teacher_account(self):
         self.client.login(username='teacher', password='Pass123')
-        response = self.client.get(reverse('student_dashboard'))
-        self.assertRedirects(response, reverse('error_page'))
+        response = self.client.get(reverse('student_dashboard', kwargs={'appUser_id': self.student_app_user.id}))
+        self.assertEqual(response.status_code, 200) 
+
 
     #---Accessing student_dashboard via student account---#
     def test_accessing_student_dashboard_from_student_account(self):
         self.client.login(username='student', password='Pass123')
-        response = self.client.get(reverse('student_dashboard'))
+        response = self.client.get(reverse('student_dashboard', kwargs={'appUser_id': self.student_app_user.id}))
         #---This checks if the response is successful---#
         self.assertEqual(response.status_code, 200) 
 
@@ -84,12 +85,12 @@ class IndexTests(TestCase):
     def test_accessing_index_as_student(self):
         self.client.login(username='student', password='Pass123')
         response = self.client.get(reverse('index'))
-        self.assertRedirects(response, reverse('student_dashboard'))
+        self.assertRedirects(response, reverse('student_dashboard', kwargs={'appUser_id': self.student_app_user.id}))
     
     def test_accessing_index_as_teacher(self):
         self.client.login(username='teacher', password='Pass123')
         response = self.client.get(reverse('index'))
-        self.assertRedirects(response, reverse('teacher_dashboard'))
+        self.assertRedirects(response, reverse('teacher_dashboard', kwargs={'appUser_id': self.teacher_app_user.id}))
 
     def test_accessing_index_as_unauthenticated_user(self):
         #--Ensure the user is logged out--#
@@ -163,12 +164,12 @@ class DashboardsTests(TestCase):
     
     def test_teacher_dashboard(self):
         self.client.login(username='teacher', password='Pass123')
-        response = self.client.get(reverse('teacher_dashboard'))
+        response = self.client.get(reverse('teacher_dashboard', kwargs={'appUser_id': self.teacher_app_user.id}))
         self.assertTemplateUsed(response, 'e_learning_application/TeacherHomepage.html')
 
     def test_student_dashboard(self):
         self.client.login(username='student', password='Pass123')
-        response = self.client.get(reverse('student_dashboard'))
+        response = self.client.get(reverse('student_dashboard', kwargs={'appUser_id': self.student_app_user.id}))
         self.assertTemplateUsed(response, 'e_learning_application/StudentHomepage.html')
 
 class CourseManagementTests(TestCase):
@@ -250,7 +251,7 @@ class CourseManagementTests(TestCase):
         })
 
         self.assertEqual(CourseContent.objects.count(), 2)   #---2 here as 1 was created in setUp---#
-        self.assertRedirects(response, reverse("teacher_dashboard"))
+        self.assertRedirects(response, reverse("teacher_dashboard", kwargs={'appUser_id': self.teacher_app_user.id}))
 
         #---Ensures that the API request was called---#
         self.assertTrue(mock_post.called)
@@ -296,7 +297,7 @@ class CourseManagementTests(TestCase):
         response = self.client.post(reverse("delete_course", args=[self.course.pk]))
 
         self.assertEqual(Course.objects.count(), 0)  # Course should be deleted
-        self.assertRedirects(response, reverse("teacher_dashboard"))
+        self.assertRedirects(response, reverse("teacher_dashboard", kwargs={'appUser_id': self.teacher_app_user.id}))
     
     def test_student_cannot_delete_course(self):
         """Ensure a student cannot delete a course."""
@@ -355,10 +356,10 @@ class CourseManagementTests(TestCase):
 
         #---Removing the enrollment entry created at setup--#
         response = self.client.post(reverse("unenroll_from_course", args=[self.course.pk]))
-
+        
         #--1 student should be removed:so back to just 0 student left in course --#
         self.assertEqual(Enrollments.objects.count(), 0)  
-        self.assertRedirects(response, reverse("student_dashboard"))
+        self.assertRedirects(response, reverse("student_dashboard", kwargs={'appUser_id': self.student_app_user2.id}))
 
     #---testing the search functionality---#
     def test_search_user(self):

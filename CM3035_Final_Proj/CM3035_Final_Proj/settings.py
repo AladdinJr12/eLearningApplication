@@ -99,31 +99,6 @@ CHANNEL_LAYERS = {
 }
 
 
-# for debugging:
-# LOGGING = {
-#     'version': 1,
-#     'disable_existing_loggers': False,
-#     'handlers': {
-#         'console': {
-#             'level': 'DEBUG',
-#             'class': 'logging.StreamHandler',
-#         },
-#     },
-#     'loggers': {
-#         'django': {
-#             'handlers': ['console'],
-#             'level': 'DEBUG',
-#             'propagate': True,
-#         },
-#         'channels': {
-#             'handlers': ['console'],
-#             'level': 'DEBUG',
-#             'propagate': True,
-#         },
-#     },
-# }
-
-
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
@@ -182,9 +157,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 STATICFILES_DIRS = [
     BASE_DIR / 'e_learning_application' / 'static', 
 ]
-# STATICFILES_DIRS = [
-#     os.path.join(BASE_DIR, 'e_learning_application', 'static'),
-# ]
+
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 

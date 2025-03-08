@@ -15,8 +15,12 @@ urlpatterns =[
     path ('login/', views.user_login, name='login'),
     path ('courses/', views.courses, name='courses'),
     path ('logout/', views.user_logout, name='logout'),
-    path('student_dashboard/', views.studentHomepage, name= 'student_dashboard'),
-    path('teacher_dashboard/', views.teacherHomepage, name= 'teacher_dashboard'),
+    path('student_dashboard/<int:appUser_id>', views.studentHomepage, name= 'student_dashboard'),
+    path('teacher_dashboard/<int:appUser_id>', views.teacherHomepage, name= 'teacher_dashboard'),
+
+    # Dynamic route for viewing a user's homepage
+    path('user/<int:appUser_id>/', views.userHomepage, name='user_homepage'),
+
     path('create-course/', views.create_course, name='create_course'),
     path('delete-course/<int:course_id>/', views.delete_course, name='delete_course'),
     path('add-content/', views.add_content, name='add_content'),

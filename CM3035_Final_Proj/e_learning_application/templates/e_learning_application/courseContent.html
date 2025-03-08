@@ -80,7 +80,13 @@
                 {% for enrollment in enrollments_list %}
                 <tr>
                     <td class="text-center align-middle" >{{ forloop.counter }}</td>
-                    <td class="text-center align-middle" >{{ enrollment.studentID.userID.user.username }}</td>
+                    <td class="text-center align-middle" >
+                        <!-- Ensures that the teacher can viewed the enrolled student's homepage -->
+                        <a href="{% url 'user_homepage' enrollment.studentID.userID.id %}" 
+                        class="card-link btn genericButton searchedUserBtn"> 
+                            {{ enrollment.studentID.userID.user.username }}
+                        </a>
+                    </td>
                     <td class="text-center align-middle" >{{ enrollment.studentID.userID.user.email }}</td>
                     <td class="text-center align-middle" >{{ enrollment.enrollment_date }}</td>
                     <td class="text-center align-middle">  

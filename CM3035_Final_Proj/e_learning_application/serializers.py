@@ -55,21 +55,7 @@ class StatusUpdateSerializer(serializers.ModelSerializer):
         model = StatusUpdates
         fields = ["user_id", "status_content", "status_update_date"]
 
-# class ChatGroupSerializer(serializers.ModelSerializer):
-#     course = CourseSerializer(source='courseID', read_only=True)
-    
-#     class Meta:
-#         model = ChatGroup
-#         fields = ['chatGroupID', 'ChatGroup_creation_date', 'name', 'course']
 
-# class ChatMessagesSerializer(serializers.ModelSerializer):
-#     # Rename sender and receiver fields for clarity
-#     sender = StudentSerializer(source='sender_id', read_only=True)
-#     receiver = TeacherSerializer(source='receiver_id', read_only=True)
-    
-#     class Meta:
-#         model = ChatMessages
-#         fields = ['ChatMessageID', 'sender', 'receiver', 'message', 'sent_at']
 
 
 

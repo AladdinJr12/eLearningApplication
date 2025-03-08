@@ -71,7 +71,6 @@ class UserLoginForm(forms.Form):
     password = forms.CharField(label="Password", widget=forms.PasswordInput(attrs={'class': 'form-control'}))
 
 
-
 #-----form for the courses and courseContent--------#
 class CourseForm(forms.ModelForm):
     class Meta:

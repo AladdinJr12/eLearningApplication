@@ -25,7 +25,13 @@
             {% for user in searched_users %}
             <tr>
                 <td class="text-center align-middle" >{{ forloop.counter }}</td>
-                <td class="text-center align-middle" >{{ user.user.username }}</td>
+                <td class="text-center align-middle" >
+                    <!-- Ensures that the teacher can viewed the searched user's homepage -->
+                    <a href="{% url 'user_homepage' user.id %}" 
+                    class="card-link btn genericButton searchedUserBtn"> 
+                        {{ user.user.username }}
+                    </a>
+                </td>
                 <td class="text-center align-middle" >{{ user.user.email }}</td>
                 <td class="text-center align-middle" >{{ user.role }}</td>
                 <!-- Displays all of the courses that the user has enrolled in -->
