@@ -1,0 +1,86 @@
+{% extends "./templatePage.html" %}
+{% load static %}
+
+{% block contentSect %} 
+
+<div class="container-fluid mt-5 pb-5 text-center ">
+    <h1> Searched Results for: <span class="generic_span">  {{ query }} </span> </h1>
+</div>
+
+
+<div class="table-responsive ">
+    <table class="table table-striped table-bordered table-dark mt-4 searchedTable">
+        <thead class="thead-dark">
+            <tr >
+                <th scope="col" class="text-center align-middle">#</th>
+                <th scope="col" class="text-center align-middle">Username</th>
+                <th scope="col" class="text-center align-middle">Email</th>
+                <th scope="col" class="text-center align-middle">Role</th>
+                <th scope="col" class="text-center align-middle">Course(s) user is enrolled in</th>
+                <th scope="col" class="text-center align-middle">Course(s) user has created</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for user in searched_users %}
+            <tr>
+                <td class="text-center align-middle" >{{ forloop.counter }}</td>
+                <td class="text-center align-middle" >
+                    <!-- Ensures that the teacher can viewed the searched user's homepage -->
+                    <a href="{% url 'user_homepage' user.id %}" 
+                    class="card-link btn genericButton searchedUserBtn"> 
+                        {{ user.user.username }}
+                    </a>
+                </td>
+                <td class="text-center align-middle" >{{ user.user.email }}</td>
+                <td class="text-center align-middle" >{{ user.role }}</td>
+                <!-- Displays all of the courses that the user has enrolled in -->
+                {% if user.role == "Student" %}
+                    <td class="text-center align-middle">  
+                        {% with student=user.students_set.all.0 %}
+                            {% if student and student.enrollment_list %}
+                                <ul class="list-unstyled">
+                                    {% for enrollment in student.enrollment_list %}
+                                        <li>{{ enrollment.courseID.courseTitle }}</li>
+                                    {% endfor %}
+                                </ul>
+                            {% else %}
+                                None
+                            {% endif %}
+                        {% endwith %}
+                    </td>
+                    <td class="text-center align-middle" >
+                        None
+                    </td>
+                <!-- Displays all of the courses that the user has created in -->
+                {% elif user.role == "Teacher" %}
+                    <td class="text-center align-middle" >
+                        None
+                    </td>                
+                
+                    <td class="text-center align-middle" >
+                        {% with teacher=user.teachers_set.all.0 %}
+                            {% if teacher and teacher.created_courses_list %}
+                                <ul class="list-unstyled">
+                                    {% for course in teacher.created_courses_list  %}
+                                        <li>{{ course.courseTitle }}</li>
+                                    {% endfor %}
+                                </ul>
+                            {% else %}
+                                None
+                            {% endif %}
+                        {% endwith %}
+                    </td>
+                {% endif %}
+
+            </tr>
+            {% empty %}
+            <tr class="text-center align-middle">
+                <td colspan="6" class="text-center">No such user was found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

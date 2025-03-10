@@ -1,0 +1,38 @@
+{% extends "./templatePage.html" %}
+{% load static %}
+
+
+{% block contentSect %} 
+<div class="container-fluid mt-5 pb-5 text-center ">
+    <h1> Our Available Courses!</h1>
+</div>
+{% if available_courses %}
+    <div class="container-fluid">
+        <div class="row justify-content-center"> 
+            {% for course in available_courses %}
+                <div class="col-md-4 mb-4 d-flex justify-content-center">
+                    <div class="card courseCard" >
+                        <div class="card-body text-center">
+                            <h5 class="card-title">{{ course.courseTitle }}</h5>
+                            <h6 class="card-subtitle mb-2 text-body-secondary pt-1 "> Created by: {{ course.teacherID.userID.user.username }} </h6>
+                            <h6 class="card-subtitle mb-2 text-body-secondary pt-1 "> Created date: {{ course.courseCreatedDate }} </h6>
+                            <p class="card-text"> {{ course.courseDescription }} </p>
+                            <!-- passing in the corresponding course id when the enroll btn is clicked on -->
+                            <a href="{% url 'enroll_in_course' course.courseID %}" class="card-link btn courseEnrollBtn"> Enroll </a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endif %}
+
+{% if user.is_authenticated %}
+
+{% else %}
+    <div class="container-fluid d-flex justify-content-center align-items-center">
+        <a href="{% url 'create' %}" class="btn HomepageSignUpBtn mt-5">SIGN UP NOW!</a>
+    </div>
+{% endif %}
+
+{% endblock %}

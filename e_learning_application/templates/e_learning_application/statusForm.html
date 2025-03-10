@@ -1,0 +1,28 @@
+{% extends "./templatePage.html" %}
+{% load bootstrap4 %}
+{% load static %}
+
+{% block contentSect %} 
+
+<div class="container-fluid mt-5 pb-5 text-center ">
+    <h1> Post your own status updates!</h1>
+</div>
+
+<form method="POST">
+    {% csrf_token %}
+    <div class="w-100 d-flex flex-column align-items-center"> 
+        <div class="mb-3">
+            <label for="{{ status_form.status_content.id_for_label }}" class="form-label">Status text:</label>
+            <div>
+                {{ status_form.status_content }}
+            </div>
+        </div>
+
+        <button type="submit" class="btn genericButton">Create Status Update</button>
+    </div>
+
+</form>
+
+
+
+{% endblock %}

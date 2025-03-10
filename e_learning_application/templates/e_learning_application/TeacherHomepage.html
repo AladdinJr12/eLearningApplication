@@ -1,0 +1,73 @@
+{% extends "./templatePage.html" %}
+{% load bootstrap4 %}
+{% load static %}
+{% block contentSect %} 
+
+<div class="container-fluid mt-5 pb-5 text-center ">
+    <h1> Courses created by: <span class="accountUsername"> {{ appUser.user.username }} </span> </h1>
+</div>
+
+
+{% if teacher_courses %}
+    <div class="container-fluid">
+        <div class="row justify-content-center"> 
+            {% for course in teacher_courses %}
+                <div class="col-md-4 mb-4 d-flex justify-content-center">
+                    <div class="card courseCard" >
+                        <div class="card-body text-center">
+                            <h5 class="card-title">{{ course.courseTitle }}</h5>
+                            <h6 class="card-subtitle mb-2 text-body-secondary pt-1 "> Created by: {{ course.teacherID.userID.user.username }} </h6>
+                            <h6 class="card-subtitle mb-2 text-body-secondary pt-1 "> Created date: {{ course.courseCreatedDate }} </h6>
+                            <p class="card-text"> {{ course.courseDescription }} </p>
+                            <a href="{% url 'course_content' course.courseID %}" class="card-link btn courseEditBtn"> View/edit course </a>
+                            <a href="{% url 'delete_course' course.courseID %}" class="card-link btn courseEditBtn"> Delete course </a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% else %}
+<hr class="sepratorLine">
+<h2 class="text-center pt-5 pb-5">No courses have been created yet</h2>
+<hr class="sepratorLine">
+{% endif %}
+
+<!-- So that outsiders can't tamper with this: Only this account's users can have access to these buttons-->
+{% if request.user.appuser.id == appUser.id %}
+    <div class="container-fluid mt-5 pb-5 d-flex justify-content-center d-none d-md-flex">
+        <div class="createCourseBtnSect">
+            <a href="{% url 'create_course' %}" class="btn createCourseBtn d-none d-md-inline-block">Create new course</a>
+        </div>
+        <div>
+            <a href="{% url 'add_content' %}" class="btn createContentBtn d-none d-md-inline-block">Add in new learning material</a>
+        </div>
+    </div>
+    <div class="d-md-block d-lg-none d-flex flex-column align-items-center">
+        <a href="{% url 'create_course' %}" class="btn createCourseBtn d-block mb-3">Create new course</a>
+        <a href="{% url 'add_content' %}" class="btn createContentBtn d-block">Add in new learning material</a>
+    </div>
+{% endif %}
+
+
+
+{% if status_list %}
+<div class="container">
+    <h2 class="mt-4 text-center pb-2"> Lastest Status Updates by <span class="accountUsername"> {{ appUser.user.username }} </span> </h2>
+    <ul class="list-group">
+        {% for status in status_list %}
+            <li class="list-group-item d-flex justify-content-between statusLi">
+                <span>{{ status.status_content }}</span>
+                <small class="text-muted">{{ status.status_update_date }}</small>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+{% else %}
+    <hr class="sepratorLine">
+    <h2 class="text-center pt-5 pb-5">No updates have been made recently</h2>
+    <hr class="sepratorLine">
+{% endif %}
+
+
+{% endblock %}

@@ -1,0 +1,1 @@
+web gunicorn CM3035_Final_Proj.wsgi:application --log-file -

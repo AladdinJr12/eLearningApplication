@@ -1,0 +1,506 @@
+/*_______________#-----Affecting most/all pages---#_____________*/
+.defaultPageBody{
+    background-color: #ECDCBF;
+    /* color: red; */
+}
+
+/*---for all alerts--*/
+.alertMessage{
+    font-weight: bolder;
+    font-size: 1rem;
+}
+
+/* used in courseContent.html */
+.generic_span{
+    color: #A31D1D;
+    font-weight: bolder;
+}
+
+/*This button is mainly used in login, create.html */
+.genericButton{
+    background-color: #FFF2F2;
+    min-width: 10rem;
+    height: 3rem;
+    outline: 2px solid black;
+    border-radius: 1cm;
+}
+
+.genericButton:hover{
+    background-color: #FCE7C8;
+}
+
+.formTitle{
+    font-weight: bolder;
+}
+
+.genericHeader{
+    color: #A31D1D;
+}
+
+/* This button is used for the courses page and TeacherHomepage */
+.courseEditBtn{
+    background-color: #ECDCBF;
+    border-radius: 1cm;
+}
+
+.courseEditBtn:hover{
+    background-color: #FF9D23;
+}
+
+
+/* This is for all of the course cards */
+.courseCard{
+    min-width: 23rem;
+    min-height: 13rem;
+}
+
+/*---------------____________________For the header section_______________________-----------------*/
+.HeaderSect{
+    background-color: #F8FAFC;
+    padding-top: 0.2%;
+    padding-bottom: 0.2%;
+}
+
+.websiteHeaderHi{
+    color: #A31D1D;
+}
+
+.websiteHeaderLearners{
+    color: black;
+}
+
+.websiteHeaderHi, .websiteHeaderLearners{
+    font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif !important
+}
+
+/* #---for the logo used in the header---# */
+#websiteLogoHeader{
+    font-size: 160% !important;
+}
+
+/* header-nav text is used for all of li present in the header except for the logo */
+.header-nav-text, #websiteLogoHeader{
+    white-space: nowrap;
+}
+
+.header-nav-text:hover, #websiteLogoHeader:hover{
+   background-color: #FCE7C8;
+}
+
+
+/* This affects the all of header items except for the logo */
+.header-nav-text, .searchBarLi{
+    font-size: 132%;
+    font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+/* Ensure all text in buttons and links is centered */
+.navbar-nav .nav-link, 
+.navbar-nav .btn {
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.navbar-nav .nav-link {
+    display: inline-flex; /* inline-flex ensures items are aligned horizontally */
+}
+
+.nav-item {
+    margin-right: 0%; 
+}
+
+.h1AccountUsername{
+    padding-left: 10%;
+}
+
+.accountUsername{
+    color: #A31D1D !important;
+}
+
+.searchBar{
+    outline: 2px solid black;
+    min-width: 10rem;
+}
+
+.searchBarLi{
+    padding-left: 5%;
+    padding-right: 5%;
+}
+
+.searchBtn {
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%; /*---Ensure full height for proper centering---*/
+}
+
+.searchBtnLi{
+    padding-right: 2.5rem !important;
+    min-width: 3rem;
+    outline: 2px solid black;
+    text-align: center !important;
+    align-items: center;
+}
+
+/* for the bell notification symbol */
+.StatusBell{
+    margin-left: 10%;
+    font-size: 130%;
+}
+
+.logoutBtn{
+    margin-left: 1.7rem;
+}
+
+/*------------For MainHomePage.html section-----------------*/
+/* Default styling (for desktop or larger screens) */
+.MainHomepageHeader {
+    font-size: 10rem;
+  }
+  
+  .MainHomepageSubheader {
+    font-size: 2rem;
+  }
+  
+.HomepageSignUpBtn{
+    font-family: Georgia, 'Times New Roman', Times, serif !important;
+    color: white !important ;
+    background-color: #A31D1D !important;
+    width: 18rem;
+    height: 5rem;
+    font-size: 2.3rem !important;
+    display: flex ;
+    justify-content: center;
+    align-items: center;
+}
+
+.HomepageSignUpBtn:hover{
+    background-color: red !important;
+}
+
+
+/*_____________________---------------------create.html-------------------------_______________________*/
+
+.createSect{
+    padding-top: 2rem;
+}
+
+.createCard{
+    min-width: 33rem;
+    padding-left: 3%;   
+    padding-right: 3%;   
+}
+
+.createCardTitle, .loginCardTitle{
+    color:#A31D1D;
+    font-weight: bolder;
+    font-size: 2rem;
+}
+
+.teacherStudentSelect{
+    outline: 2px solid black;
+}
+
+/* the error messages that is displayed when account creation fails */
+.error-message{
+    font-weight: bolder;
+    color: #A31D1D;
+}
+
+/*_____________________---------------------login.html-------------------------_______________________*/
+
+.loginCardTitle{
+    padding-top: 1%;
+    padding-bottom: 1%;
+}
+
+.loginCard{
+    padding-left:  1%;   
+    padding-right: 1%;   
+    min-width: 30rem;
+    min-height: 30rem ;
+}
+
+
+/*____________________--------------------courses.html------------------_________________*/
+.courseEnrollBtn{
+    background-color: #ECDCBF;
+    border-radius: 1cm;
+    padding-left:  8%;
+    padding-right: 8%;
+    padding-top:    3%;
+    padding-bottom: 3%;
+}
+
+
+.courseEnrollBtn:hover{
+    background-color: #FF9D23;
+}
+
+
+
+/*_____________________---------------------TeacherHomepage.html---------------------____________________*/
+
+.createCourseBtn, .createContentBtn{
+    font-family: Georgia, 'Times New Roman', Times, serif !important;
+    color: white !important ;
+    background-color: #A31D1D !important;
+    min-width: 18rem;
+    min-height: 5rem;
+
+    font-size: 2.0rem ;
+}
+
+.createCourseBtn{
+    padding-top: 6%;
+}
+
+.createContentBtn{
+    padding-top: 4%;
+}
+
+.createCourseBtn:hover, .createContentBtn:hover{
+    background-color: red !important;
+}
+
+.createCourseBtnSect{
+    padding-right: 20%;
+}
+
+/*_____________________---------------------createCourses.html---------------------____________________*/
+
+.createCourseContainer{
+    justify-content: center;
+}
+
+/* Targets only the Course Title and course description textarea */
+textarea[name="courseTitle"], textarea[name="courseDescription"] {
+    width: 100%;
+    height: 3rem;
+    border: 2px solid #050506;
+    padding: 10px;
+    font-size: 16px;
+}
+
+textarea[name="courseDescription"]{
+    height: 10rem;
+}
+
+
+/*_____________________---------------------addContent.html---------------------____________________*/
+
+textarea[name="contentTitle"]{
+    width: 100%;
+    max-height: 7rem;
+    border: 2px solid #050506;
+    padding: 10px;
+}
+
+
+
+/* Style and center the file input */
+input[name="file"] {
+    display: block;
+    width: 100%;
+    min-width: 120px;
+    max-width: 350px;
+    text-align: center !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid #050506;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: white;
+}
+
+
+/*---Hide the default file input and create a custom button---*/
+input[type="file"]::-webkit-file-upload-button {
+    background-color: #FBA518;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+input[type="file"]::-webkit-file-upload-button:hover {
+    background-color: #FF9D23;
+}
+
+/*_____________________---------------------courseContent.html---------------------____________________*/
+.unenrollBtn, .submitFeedbackBtn{
+    padding-top: 0.8% ;
+}
+
+.courseContentSubheader{
+    font-size: 2rem;
+    color: #AC1754;
+    font-weight: bolder;
+}
+
+.contactFont{
+    font-size: 1.2rem ;
+    padding: 0.5%;
+}
+
+.contactBtn{
+    background-color: #ECDCBF;
+    border-radius: 1cm;
+    padding-right: 10%;
+    padding-left:  10%;
+}
+
+.contactBtn:hover{
+    background-color: #FF9D23;
+}
+
+.feedbackText{
+    /* font-weight: bold; */
+    font-size: 1.2rem;
+}
+
+.contactTeacherBtn{
+    padding-top: 0.9%;
+}
+
+/*___________________------------------searched_results.html---------------------__________________*/
+.searchedTable{
+    padding-left:  1%;
+    padding-right: 1%;
+}
+.searchedUserBtn{
+    padding-top: 5%;
+}
+
+/*___________________------------------statusPage.html---------------------__________________*/
+.statusUpdateBtn{
+    background-color: #ca4747;
+    border-radius: 1cm;
+    min-height: 14%;
+    padding: 2%;
+    padding-top: 2.5%;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-weight: bold;
+    min-width: 30%;
+    font-size: 1.4rem;
+}
+
+.statusUpdateBtn:hover{
+    background-color: red;
+}
+
+
+/*_____________________---------------------footer.html-------------------------_______________________*/
+.footerLine{
+    border: 1px solid black;
+    margin-top: 6%;
+}
+
+.footer{
+    padding-top: 1rem;
+}
+
+.footerLinks {
+    text-decoration: none !important;
+    color: inherit; 
+}
+
+.footerLinks:hover{
+    color: #A31D1D;
+}
+
+.footerEmojis{
+    font-size: 160%;
+    padding-left: 1%;
+    padding-right: 1%;
+}
+
+
+
+
+/*________________-----------For screens smaller than 768px (mobile)-----------______________*/
+@media (max-width: 768px) {
+    /*__________----------------For header.html-------------__________*/
+
+    .StatusBell{
+        margin-left: 60%;
+    }
+
+    .logoutBtn{
+        margin-left: 0%;
+    }
+    
+
+    /*__________----------------For homepage.html-------------__________*/
+    .MainHomepageHeader {
+        font-size: 4rem;
+    }
+    .MainHomepageSubheader {
+        font-size: 1.5rem;
+    }
+    .FiveStarImage {
+        padding-right: 10% !important;
+    }
+    
+    .testBtn.desktop-only {
+        display: none !important;
+    }
+    
+    /*__________----------------For TeacherDashboard.html-------------__________*/
+
+    .createCourseBtn, .createContentBtn{
+        min-width: none;
+        width: 0.7rem;
+        font-size: 1.3rem;
+    }
+
+    /*__________----------------For create.html and login.html-------------__________*/
+    .createCard, .loginCard{
+        min-width: 3rem;
+    }
+    
+    .error-message{
+        font-size: 0.9rem;
+    }
+    /*__________----------------For courses.html----------------__________*/
+    .courseCard{
+        min-width: 2.5rem;
+    }
+    /*__________----------------For searched_results.html----------------__________*/
+    
+    .searchedTable{
+        font-size: 60% ;
+    }
+    .searchedUserBtn{
+        min-width: 0rem;
+        width: 3rem ;
+        height: 1rem;
+        font-size: 50%;
+    }
+
+    /*__________----------------For statusPage.html----------------__________*/
+    .statusLi{
+        font-size: 60%;
+    }
+    .statusUpdateBtn{
+        min-height: 0%;
+        height: 5rem;
+        padding-top: 6%;
+    }
+
+    /*__________----------------For footer.html-------------__________*/
+    .footerTitle{
+        padding-top: 1%;
+    }
+
+    .footerLinks{
+        font-size: 0.9rem;
+    }
+}

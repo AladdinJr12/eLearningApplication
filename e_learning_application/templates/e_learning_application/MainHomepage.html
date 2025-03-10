@@ -1,0 +1,40 @@
+<!----------The Main homepage --------->
+
+{% extends "./templatePage.html" %}
+{% load bootstrap4 %}
+{% load static %}
+
+{% block contentSect %} 
+
+
+<div class="container-fluid mt-5 pb-5 MainHomePageDiv">
+    <div class="row align-items-center">
+        <!-- Left column of the homepage: Headers and sign up button -->
+        <div class="col-md-8">
+            <h1 class="MainHomepageHeader">
+                <span class="websiteHeaderHi">Hi</span><span class="websiteHeaderLearners">Learners</span>
+            </h1>
+            <h1 class="MainHomepageSubheader">The best online learning software for you!</h1>
+            <!-- Sign Up Button (Visible only on desktop) -->
+            <a href="{% url 'create' %}" class="btn HomepageSignUpBtn testBtn mt-5 d-none d-md-inline-block">SIGN UP NOW!</a>
+        </div>
+        
+        <!-- Right column of the homepage: Image(s) -->
+        <div class="col-md-4 text-end">
+            <img src="{% static 'images/5-star-google-review-request.jpg' %}"  class="img-fluid FiveStarImage" alt="Logo">
+        </div>
+
+
+    </div>
+    <!-- Sign Up Button (Visible only on mobile, below the image) -->
+    <div class="row d-md-none mt-3">
+        <div class="col text-center">
+            <a href="{% url 'create' %}" class="btn HomepageSignUpBtn">SIGN UP NOW!</a>
+        </div>
+    </div>
+
+</div>
+
+
+{% endblock %}
+

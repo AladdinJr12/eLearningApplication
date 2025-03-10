@@ -1,0 +1,17 @@
+{% extends "./templatePage.html" %}
+{% load static %}
+
+{% block contentSect %} 
+
+<div class="container-fluid text-center pt-5 pb-5">
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-danger alertMessage">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+    <h2>Access Denied</h2>
+    <p>You do not have permission to view this page.</p>
+    <a href="{% url 'index' %}" class="btn genericButton pt-2">Go Back Home</a>
+</div>
+{% endblock %}
+

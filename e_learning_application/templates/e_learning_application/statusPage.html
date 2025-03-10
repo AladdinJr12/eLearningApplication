@@ -1,0 +1,27 @@
+{% extends "./templatePage.html" %}
+{% load bootstrap4 %}
+{% load static %}
+
+{% block contentSect %} 
+<div class="container">
+    <h2 class="mt-4 text-center pb-2">All Of Your Status Updates</h2>
+    <ul class="list-group">
+        {% for status in status_list %}
+            <li class="list-group-item d-flex justify-content-between statusLi">
+                <span>{{ status.status_content }}</span>
+                <small class="text-muted">{{ status.status_update_date }}</small>
+            </li>
+        {% empty %}
+            <li class="list-group-item text-muted">No updates yet.</li>
+        {% endfor %}
+    </ul>
+    <div class="text-center pt-5">
+        <a href="{% url 'status_form_page' %}" class="btn statusUpdateBtn ">Add in your own status update!</a>
+    </div>
+</div>
+
+
+
+
+
+{% endblock %}

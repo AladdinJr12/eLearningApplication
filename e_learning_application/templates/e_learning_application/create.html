@@ -1,0 +1,53 @@
+{% extends "./templatePage.html" %}
+{% load bootstrap4 %}
+{% load static %}
+
+{% block contentSect %} 
+
+<div class="container-fluid createSect align-items-center d-flex justify-content-center align-items-center ">
+    <div class="card createCard text-center" >
+      
+        <div class="card-body">
+          <h5 class="card-title createCardTitle">Create your account</h5>
+          <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          <a href="#" class="btn btn-primary">Go somewhere</a> -->
+
+          <form method="POST">
+            {% csrf_token %}
+
+            <!-- Loop through form fields to render them -->
+            {% for field in form %}
+            <div class="mb-3">
+              <div class="d-flex align-items-center justify-content-between">
+                <!-- The field's label/ is this email, role or password? etc -->
+                <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+
+                <!-- Error messages -->
+                {% if field.errors %}
+                    <div class="error-message">
+                        {% for error in field.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}                
+              </div>
+
+              {{ field }}
+                
+              <!-- Help text (e.g., password requirements) -->
+              {% if field.help_text %}
+                  <small class="form-text text-muted">{{ field.help_text }}</small>
+              {% endif %}
+
+            </div>
+            {% endfor %}
+
+            <button type="submit" class="btn genericButton">Create new account</button>
+          </form>
+
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
